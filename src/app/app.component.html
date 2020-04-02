@@ -6,7 +6,11 @@
             </button>
             <div class="card mb-3">
                 <div class="card-body">
-                    Quiz List
+                    <div
+                        *ngFor="let q of quizzes"
+                    >
+                        {{ q }}
+                    </div>
                 </div>
             </div>
         </div>

@@ -7,4 +7,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'quiz-editor';
+  bg = Math.random() > 0.5 ? 'green' : 'yellow';
+  borderRadius = Math.random() > 0.5 ? '30px' : '0px';
 }

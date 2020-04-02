@@ -18,7 +18,21 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-8">
+        <div 
+            class="col-md-8"
+            *ngIf="selectedQuiz == undefined"
+        >
+            <div class="card bg-light">
+                <div class="card-body text-center">
+                    <h5>No Quiz Selected</h5>
+                    Please select or add a new quiz to get started...
+                </div>
+            </div>
+        </div>
+        <div 
+            class="col-md-8"
+            *ngIf="selectedQuiz != undefined"
+        >
             <button class="btn btn-outline-dark mb-3">
                 Save Quizzes
             </button>

@@ -21,11 +21,16 @@ export class AppComponent implements OnInit {
   constructor(private quizSvc: QuizService) { }
 
   quizzes: QuizDisplay[] = [];
+  selectedQuiz: QuizDisplay = undefined;
 
   ngOnInit() {
     this.quizzes = this.quizSvc.loadQuizzes().map(x => ({
       name: x
       , questionCount: 0
     }));
+  }
+
+  selectQuiz(quizToSelect) {
+    this.selectedQuiz = quizToSelect;
   }
 }

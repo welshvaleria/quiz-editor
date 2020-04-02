@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { QuizService } from './quiz.service';
 
+interface QuizDisplay {
+  name: string;
+  questionCount: number;
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -15,9 +20,12 @@ export class AppComponent implements OnInit {
   // Need a ctor for DI of the QuizService.
   constructor(private quizSvc: QuizService) { }
 
-  quizzes = [];
+  quizzes: QuizDisplay[] = [];
 
   ngOnInit() {
-    this.quizzes = this.quizSvc.loadQuizzes();
+    this.quizzes = this.quizSvc.loadQuizzes().map(x => ({
+      name: x
+      , questionCount: 0
+    }));
   }
 }

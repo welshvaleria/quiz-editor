@@ -9,4 +9,5 @@ export class AppComponent {
   title = 'quiz-editor';
   bg = Math.random() > 0.5 ? 'green' : 'yellow';
   borderRadius = Math.random() > 0.5 ? '30px' : '0px';
+  toolTip = `This is ${this.bg} and has a border radius of ${this.borderRadius}`;
 }

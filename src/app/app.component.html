@@ -28,7 +28,7 @@
                 >
                     {{ q.name }}
                     <small class="font-italic font-weight-lighter">
-                        ({{ q.questionCount }} question<span *ngIf="q.questionCount != 1">s</span>)
+                        ({{ q.questions.length }} question<span *ngIf="q.questionCount != 1">s</span>)
                     </small> 
                 </button>
             </div>
@@ -70,7 +70,11 @@
                     Questions
                 </div>
                 <div class="card-body">
-                    Coming soon!
+                    <div
+                        *ngFor="let question of selectedQuiz.questions"
+                    >
+                        {{ question.name }}
+                    </div>
                 </div>
             </div>
             <div class="card">

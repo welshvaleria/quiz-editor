@@ -3,7 +3,12 @@ import { QuizService } from './quiz.service';
 
 interface QuizDisplay {
   name: string;
-  questionCount: number;
+  //questionCount: number;
+  questions: QuestionDisplay[];
+}
+
+interface QuestionDisplay {
+  name: string;
 }
 
 @Component({
@@ -29,9 +34,10 @@ export class AppComponent implements OnInit {
     this.quizSvc.loadQuizzes().subscribe(
       data => {
         console.log(data);
-        this.quizzes = (data as any).map(x => ({
+        this.quizzes = (data as QuizDisplay[]).map(x => ({
           name: x.name
-          , questionCount: x.questions.length
+          //, questionCount: x.questions.length
+          , questions: x.questions
         }));
       }
       , error => this.wasErrorLoadingQuizzes = true
@@ -50,7 +56,8 @@ export class AppComponent implements OnInit {
   addNewQuiz() {
     const newQuiz = {
       name: "Untitled Quiz"
-      , questionCount: 1
+      //, questionCount: 1
+      , questions: []
     };
 
     this.quizzes = [

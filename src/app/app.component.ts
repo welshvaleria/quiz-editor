@@ -41,9 +41,6 @@ export class AppComponent implements OnInit {
   }
 
   onKey(value: string) {
-    
     this.selectedQuiz.name = value;
-    
-
   }
 }

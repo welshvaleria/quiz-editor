@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
   addNewQuiz() {
     const newQuiz = {
       name: "Untitled Quiz"
-      , questionCount: 0
+      , questionCount: 1
     };
 
     this.quizzes = [

@@ -22,16 +22,20 @@ export class AppComponent implements OnInit {
 
   quizzes: QuizDisplay[] = [];
   selectedQuiz: QuizDisplay = undefined;
+  wasErrorLoadingQuizzes = false;
 
   ngOnInit() {
     
-    this.quizSvc.loadQuizzes().subscribe(data => {
-      console.log(data);
-      this.quizzes = (data as any).map(x => ({
-        name: x.name
-        , questionCount: x.questions.length
+    this.quizSvc.loadQuizzes().subscribe(
+      data => {
+        console.log(data);
+        this.quizzes = (data as any).map(x => ({
+          name: x.name
+          , questionCount: x.questions.length
       }));
-    });
+  }
+      , error => this.wasErrorLoadingQuizzes = true
+  );
 
     // this.quizzes = this.quizSvc.loadQuizzes().map(x => ({
     //   name: x

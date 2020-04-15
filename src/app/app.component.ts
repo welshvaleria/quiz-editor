@@ -24,10 +24,13 @@ export class AppComponent implements OnInit {
   selectedQuiz: QuizDisplay = undefined;
 
   ngOnInit() {
-    this.quizzes = this.quizSvc.loadQuizzes().map(x => ({
-      name: x
-      , questionCount: 0
-    }));
+    
+    this.quizSvc.loadQuizzes().subscribe(data => console.log(data));
+
+    // this.quizzes = this.quizSvc.loadQuizzes().map(x => ({
+    //   name: x
+    //   , questionCount: 0
+    // }));
   }
 
   selectQuiz(quizToSelect) {

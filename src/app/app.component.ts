@@ -3,12 +3,7 @@ import { QuizService } from './quiz.service';
 
 interface QuizDisplay {
   name: string;
-  //questionCount: number;
-  questions: QuestionDisplay[];
-}
-
-interface QuestionDisplay {
-  name: string;
+  questionCount: number;
 }
 
 @Component({
@@ -27,36 +22,28 @@ export class AppComponent implements OnInit {
 
   quizzes: QuizDisplay[] = [];
   selectedQuiz: QuizDisplay = undefined;
-  wasErrorLoadingQuizzes = false;
 
   ngOnInit() {
-
-    this.quizSvc.loadQuizzes().subscribe(
-      data => {
-        console.log(data);
-        this.quizzes = (data as QuizDisplay[]).map(x => ({
-          name: x.name
-          //, questionCount: x.questions.length
-          , questions: x.questions
-        }));
-      }
-      , error => this.wasErrorLoadingQuizzes = true
-    );
-
-    // this.quizzes = this.quizSvc.loadQuizzes().map(x => ({
-    //   name: x
-    //   , questionCount: 0
-    // }));
+    this.quizzes = this.quizSvc.loadQuizzes().map(x => ({
+      name: x
+      , questionCount: 0
+    }));
   }
 
   selectQuiz(quizToSelect) {
     this.selectedQuiz = quizToSelect;
   }
 
-  addNewQuiz() {
+  addQuiz() {
+    let newQuiz: QuizDisplay = {name: "Untitled", questionCount: 0};
+    this.quizzes.push(newQuiz);
+    this.selectQuiz(newQuiz); 
+  }
+
+    addNewQuiz() {
     const newQuiz = {
       name: "Untitled Quiz"
-      //, questionCount: 1
+      , questionCount: 1
       , questions: []
     };
 
@@ -66,5 +53,9 @@ export class AppComponent implements OnInit {
     ];
 
     this.selectQuiz(newQuiz);
+  }
+
+  onKey(value: string) {
+    this.selectedQuiz.name = value;
   }
 }

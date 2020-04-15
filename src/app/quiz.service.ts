@@ -6,11 +6,15 @@ import { HttpClient } from '@angular/common/http';
 })
 export class QuizService {
 
-  constructor(private httpSvc: HttpClient) { }
+  constructor() { }
 
   loadQuizzes() {
+    const quizzesFromWeb = [
+      "Quiz 1"
+      , "Quiz 2"
+      , "Quiz 3"
+    ];
 
-    return this.httpSvc.get('https://modern-js.azurewebsites.net/api/HttpTriggerJS1?code=8XD3vN3ehHLdZacBQJQhgUnNst9202gdd5VM3kWCytDkz2nXhia6kA==&name=Mystery%20Quiz');
-
+    return quizzesFromWeb;
   }
 }

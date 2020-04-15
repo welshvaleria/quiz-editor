@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuizService {
 
-  constructor() { }
+  constructor(private httpSvc: HttpClient) { }
 
   loadQuizzes() {
     const quizzesFromWeb = [

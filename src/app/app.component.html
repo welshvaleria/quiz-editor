@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row mt-3">
         <div class="col-md-4">
-            <button class="btn btn-outline-success mb-3">
+            <button class="btn btn-outline-success mb-3" (click)="addNewQuiz()">
                 Add New Quiz
             </button>
             <div class="list-group mb-3">
@@ -10,6 +10,7 @@
                     *ngFor="let q of quizzes"
                     (click)="selectQuiz(q)"
                     [class.active]="q == selectedQuiz"
+                    
                 >
                     {{ q.name }}
                     <small class="font-italic font-weight-lighter">
@@ -44,7 +45,10 @@
                     General
                 </div>
                 <div class="card-body">
-                    {{ selectedQuiz.name }}
+                    <input
+                        [(ngModel)]="selectedQuiz.name"
+                        class="form-control"
+                    />
                 </div>
             </div>
             <div class="card mb-3">

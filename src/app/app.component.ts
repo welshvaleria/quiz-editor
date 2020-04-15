@@ -33,4 +33,20 @@ export class AppComponent implements OnInit {
   selectQuiz(quizToSelect) {
     this.selectedQuiz = quizToSelect;
   }
+
+  addNewQuiz() {
+      const newQuiz = {
+          name: "New Quiz"
+          , questionCount: 0
+      };
+
+      // Spread all the previous quizzes in!
+      this.quizzes = [
+          ...this.quizzes,
+          newQuiz
+      ];
+
+      // Select the new quiz
+      this.selectQuiz(newQuiz);
+  }
 }

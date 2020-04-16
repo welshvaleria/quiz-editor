@@ -76,4 +76,8 @@ export class AppComponent implements OnInit {
       }
     ];
   }
+
+  removeQuestion(question: QuestionDisplay) {
+    this.selectedQuiz.questions = this.selectedQuiz.questions.filter(x => x != question);
+  }
 }

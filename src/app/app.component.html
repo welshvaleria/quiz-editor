@@ -28,7 +28,7 @@
                 >
                     {{ q.name }}
                     <small class="font-italic font-weight-lighter">
-                        ({{ q.questions.length }} question<span *ngIf="q.questionCount != 1">s</span>)
+                        ({{ q.questions.length }} question<span *ngIf="q.questions.length != 1">s</span>)
                     </small> 
                 </button>
             </div>
@@ -69,12 +69,28 @@
                 <div class="card-header">
                     Questions
                 </div>
-                <div class="card-body">
-                    <div
-                        *ngFor="let question of selectedQuiz.questions"
-                    >
-                        {{ question.name }}
-                    </div>
+                <button 
+                class="btn m-3 w-25 btn-outline-success"
+                (click)="addNewQuestion()"
+                 >Add New Question</button>               
+             <div class="card-body">
+                 <div
+                    class="d-flex justify-content-between" 
+                    *ngFor="let question of selectedQuiz.questions"
+                 >
+                    <input
+                        style="width:75%"
+                        class="m-3 mw-50"
+                        [(ngModel)]="question.name"
+                        class="form-control"
+                    />
+                    <button
+                        style="color:red"
+                        class="btn mb-3"
+                        (click)="removeQuestion(question)"
+                    >Remove</button>
+                 </div>
+                                    
                 </div>
             </div>
             <div class="card">

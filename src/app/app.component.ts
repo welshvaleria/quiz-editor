@@ -56,7 +56,7 @@ export class AppComponent implements OnInit {
   addNewQuiz() {
     const newQuiz = {
       name: "Untitled Quiz"
-      //, questionCount: 1
+      // , questionCount: 1
       , questions: []
     };
 
@@ -66,5 +66,21 @@ export class AppComponent implements OnInit {
     ];
 
     this.selectQuiz(newQuiz);
+  }
+
+  addNewQuestion() {
+    const newQuestion = {
+      name: ""
+    };
+    this.selectedQuiz.questions = [
+      ...this.selectedQuiz.questions
+      , newQuestion
+    ]
+    console.log(this.selectedQuiz.questions.length)
+  }
+
+  removeQuestion(selectedQuestion) {
+    let index = this.selectedQuiz.questions.indexOf(selectedQuestion);
+    if (index !== -1) this.selectedQuiz.questions.splice(index, 1);
   }
 }

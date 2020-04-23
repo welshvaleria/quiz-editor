@@ -80,4 +80,49 @@ export class AppComponent implements OnInit {
   removeQuestion(question: QuestionDisplay) {
     this.selectedQuiz.questions = this.selectedQuiz.questions.filter(x => x != question);
   }
+
+  jsPromisesOne() {
+    const x = this.quizSvc.getMagicNumberPromise(true);
+    console.log(x); // ? ? ?
+
+    x.then(x => {
+      console.log(x)
+
+      const y = this.quizSvc.getMagicNumberPromise(false);
+      console.log(y); // ? ? ?
+
+      y.then(z => console.log(z)).catch(err => console.log(err));
+    })
+    .catch(err => console.log(err));
+  }
+
+  async jsPromisesTwo() {
+    try {
+      const x = await this.quizSvc.getMagicNumberPromise(true);
+      console.log(x); // ? ? ?
+
+      const y = await this.quizSvc.getMagicNumberPromise(false);
+      console.log(y); // ? ? ? 
+    }
+    catch(err) {
+      console.error(err);
+    }
+  }
+
+  async jsPromisesThree() {
+    try {
+      const x = this.quizSvc.getMagicNumberPromise(true);
+      console.log(x); // ? ? ?
+
+      const y = this.quizSvc.getMagicNumberPromise(true);
+      console.log(y); // ? ? ? 
+
+      const results = await Promise.all([x, y]);
+      //const results = await Promise.race([x, y]);
+      console.log(results); // ? ? ?
+    }
+    catch(err) {
+      console.error(err);
+    }
+  }
 }

@@ -128,4 +128,6 @@ export class AppComponent implements OnInit {
       console.error(err);
     }
   }
+
+  toughestQuestion = "Nothing Selected";
 }

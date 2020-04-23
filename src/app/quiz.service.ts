@@ -10,7 +10,7 @@ export class QuizService {
 
   loadQuizzes() {
 
-    return this.httpSvc.get('https://modern-js.azurewebsites.net/api/HttpTriggerJS1?code=8XD3vN3ehHLdZacBQJQhgUnNst9202gdd5VM3kWCytDkz2nXhia6kA==&name=Mystery%20Quiz');
+    return this.httpSvc.get('https://modern-js.azurewebsites.net/api/HttpTriggerJS1?code=8XD3vN3ehHLdZacBQJQhgUnNst9202gdd5VM3kWCytDkz2nXhia6kA==&name=Cacie%20Robichaux');
 
   }
 }

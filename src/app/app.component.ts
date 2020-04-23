@@ -67,4 +67,17 @@ export class AppComponent implements OnInit {
 
     this.selectQuiz(newQuiz);
   }
+  addNewQuestion() {
+    this.selectedQuiz.questions = [
+      ...this.selectedQuiz.questions
+      , {
+        name: "New Untitled Question"
+      }
+    ];
+  }
+
+  removeQuestion(questionToRemove: QuestionDisplay) {
+    this.selectedQuiz.questions = this.selectedQuiz.questions
+  }
+
 }

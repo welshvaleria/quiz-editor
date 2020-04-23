@@ -5,6 +5,7 @@ interface QuizDisplay {
   name: string;
   //questionCount: number;
   questions: QuestionDisplay[];
+  markedForDelete: boolean;
 }
 
 interface QuestionDisplay {
@@ -38,6 +39,7 @@ export class AppComponent implements OnInit {
           name: x.name
           //, questionCount: x.questions.length
           , questions: x.questions
+          , markedForDelete: false
         }));
       }
       , error => this.wasErrorLoadingQuizzes = true
@@ -58,6 +60,7 @@ export class AppComponent implements OnInit {
       name: "Untitled Quiz"
       //, questionCount: 1
       , questions: []
+      , markedForDelete: false
     };
 
     this.quizzes = [

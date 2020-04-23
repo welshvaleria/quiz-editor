@@ -132,7 +132,7 @@
                     Other
                 </div>
                 <div class="card-body">
-                    <div class="form-check">
+                    <div class="form-check mb-3">
                         <input 
                             id="markForDeleteInput" 
                             type="checkbox" 
@@ -146,6 +146,17 @@
                         >
                             Mark for Delete
                         </label>
+                    </div>
+                    <div ngbDropdown placement="top-right" class="d-inline-block">
+                        <button class="btn btn-outline-primary" id="dropdownBasic2" ngbDropdownToggle>Toughest Question</button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+                            <button 
+                                ngbDropdownItem
+                                *ngFor="let question of selectedQuiz.questions"
+                            >
+                                {{ question.name }}
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

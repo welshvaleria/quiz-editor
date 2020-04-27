@@ -80,4 +80,55 @@ export class AppComponent implements OnInit {
   removeQuestion(question: QuestionDisplay) {
     this.selectedQuiz.questions = this.selectedQuiz.questions.filter(x => x != question);
   }
+
+  jsPromisesOne() {
+      const x = this.quizSvc.getMagicNumberPromise(true);
+      console.log(x); // ???  
+
+      x.then(x => {
+        console.log(x)
+
+        const y = this.quizSvc.getMagicNumberPromise(false);
+        console.log(y);
+
+        y.then(z => console.log(z)).catch(err => console.log(err));
+      })
+      .catch(err => console.log(err));
+  }
+
+  async jsPromisesTwo() {
+    try {
+      const x = await this.quizSvc.getMagicNumberPromise(true);
+      console.log(x); // 42 appears instantly due to the await
+
+      const y = await this.quizSvc.getMagicNumberPromise(false);
+      console.log(y); // no magic number for you message
+    }
+    catch(err) {
+      console.error(err);
+    }
+  }
+
+  async jsPromisesThree() {
+    try {
+      const x = this.quizSvc.getMagicNumberPromise(true);
+      console.log(x); // 42 appears instantly due to the await
+
+      const y = this.quizSvc.getMagicNumberPromise(true);
+      console.log(y); // no magic number for you message
+
+      const results = await Promise.all([x, y]);
+      
+      
+      //const results = await Promise.race([x, y]);
+      //method returns a promise that fulfills or rejects as soon as one of the promises 
+      //in an iterable fulfills or rejects, with the value or reason from that promise.
+
+      console.log(results); // we get an array of 42 results
+    }
+    catch(err) {
+      console.error(err);
+    }
+  }
+
 }

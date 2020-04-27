@@ -17,6 +17,14 @@ interface QuestionDisplay {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
+//@Component({
+//selector: 'ngbd-popover-basic',
+//templateUrl: './popover-basic.html'
+//})
+//export class NgbdPopoverBasic {
+//}
+
 export class AppComponent implements OnInit {
   title = 'quiz-editor';
   bg = Math.random() > 0.5 ? 'green' : 'yellow';

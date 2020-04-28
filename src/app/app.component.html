@@ -147,6 +147,12 @@
                             Mark for Delete
                         </label>
                     </div>
+                    <div>
+                        <p>How much do you miss Tom right now?</p>
+                        <ngb-rating [(rate)]="currentRate"></ngb-rating>
+                        <hr>
+                        <pre>Loneliness: <b>{{currentRate}}</b></pre>
+                    </div>
                 </div>
             </div>
         </div>

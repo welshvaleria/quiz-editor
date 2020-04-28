@@ -129,3 +129,11 @@ export class AppComponent implements OnInit {
     }
   }
 }
+
+@Component({
+    selector: 'ngbd-rating-basic',
+    templateUrl: './app.component.html'
+  })
+  export class NgbdRatingBasic {
+    currentRate = 10;
+  }

@@ -6,6 +6,7 @@ interface QuizDisplay {
   //questionCount: number;
   questions: QuestionDisplay[];
   markedForDelete: boolean;
+  dueDate: { year: number; month: number; day: number; }
 }
 
 interface QuestionDisplay {
@@ -31,7 +32,7 @@ export class AppComponent implements OnInit {
   wasErrorLoadingQuizzes = false;
 
   ngOnInit() {
-
+  const date = new Date();
     this.quizSvc.loadQuizzes().subscribe(
       data => {
         console.log(data);
@@ -40,6 +41,11 @@ export class AppComponent implements OnInit {
           //, questionCount: x.questions.length
           , questions: x.questions
           , markedForDelete: false
+          , dueDate: {
+            "year": date.getFullYear(),
+            "month": date.getMonth() + 1,
+            "day": date.getUTCDate()
+          }
         }));
       }
       , error => this.wasErrorLoadingQuizzes = true
@@ -53,14 +59,21 @@ export class AppComponent implements OnInit {
 
   selectQuiz(quizToSelect) {
     this.selectedQuiz = quizToSelect;
+    console.log(quizToSelect)
   }
 
   addNewQuiz() {
+    const date = new Date();
     const newQuiz = {
       name: "Untitled Quiz"
       //, questionCount: 1
       , questions: []
       , markedForDelete: false
+      , dueDate: {
+        "year": date.getFullYear(),
+        "month": date.getMonth() + 1,
+        "day": date.getUTCDate()
+  }
     };
 
     this.quizzes = [

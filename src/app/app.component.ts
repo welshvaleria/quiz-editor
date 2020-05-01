@@ -150,10 +150,7 @@ export class AppComponent implements OnInit {
   }
 
   get numberOfAddedQuizzes() {
-    return this.quizzes.filter(x => 
-      x.newlyAdded 
-      && !x.markedForDelete
-    ).length;
+    return this.quizzes.filter(x => this.isAddedQuiz(x)).length;
   }
 
   get numberOfEditedQuizzes() {
@@ -166,11 +163,20 @@ export class AppComponent implements OnInit {
       && !q.newlyAdded;
   }
 
+  private isAddedQuiz(q: QuizDisplay): boolean {
+    return q.newlyAdded && !q.markedForDelete;
+  }
+
   saveBatchEdits() {
 
     const changedQuizzes = this.quizzes.filter(x => this.isEditedQuiz(x));
 
-    const newQuizzes = [];
+    const newQuizzes = this.quizzes
+    .filter(x => this.isAddedQuiz(x))
+    .map(x =>({
+      quizName: x.name
+      , quizQuestions: x.questions.map(y => y.name) 
+    }));
 
     this.quizSvc.saveQuizzes(
       changedQuizzes

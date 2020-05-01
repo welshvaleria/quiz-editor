@@ -31,24 +31,25 @@ export class AppComponent implements OnInit {
   wasErrorLoadingQuizzes = false;
 
   ngOnInit() {
+    this.loadAllQuizzes();
+  }
 
-    this.quizSvc.loadQuizzes().subscribe(
-      data => {
-        console.log(data);
-        this.quizzes = (data as QuizDisplay[]).map(x => ({
-          name: x.name
-          //, questionCount: x.questions.length
-          , questions: x.questions
-          , markedForDelete: false
-        }));
-      }
-      , error => this.wasErrorLoadingQuizzes = true
-    );
+  private loadAllQuizzes() {
+    this.quizSvc.loadQuizzes().subscribe(data => {
+      console.log(data);
+      this.quizzes = (data as QuizDisplay[]).map(x => ({
+        name: x.name
+        //, questionCount: x.questions.length
+        ,
+        questions: x.questions,
+        markedForDelete: false
+      }));
+    }, error => this.wasErrorLoadingQuizzes = true);
+  }
 
-    // this.quizzes = this.quizSvc.loadQuizzes().map(x => ({
-    //   name: x
-    //   , questionCount: 0
-    // }));
+  cancelAllChanges() {
+    this.loadAllQuizzes();
+    this.selectedQuiz = undefined;
   }
 
   selectQuiz(quizToSelect) {

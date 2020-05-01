@@ -129,4 +129,8 @@ export class AppComponent implements OnInit {
       console.error(err);
     }
   }
+
+  get numberOfDeletedQuizzes() {
+    return this.quizzes.filter(x => x.markedForDelete).length;
+  }
 }

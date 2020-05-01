@@ -56,7 +56,7 @@ export class AppComponent implements OnInit {
 
   generateNaiveChecksum(q: QuizDisplay) {
     const foo = q.name + q.questions.map(x => '~' + x.name).join('');
-    console.log(foo);
+    //console.log(foo);
     return foo;
   }
 
@@ -157,10 +157,27 @@ export class AppComponent implements OnInit {
   }
 
   get numberOfEditedQuizzes() {
-    return this.quizzes.filter(x => 
-      this.generateNaiveChecksum(x) != x.naiveQuizChecksum 
-      && !x.markedForDelete
-      && !x.newlyAdded
-    ).length;
+    return this.quizzes.filter(x => this.isEditedQuiz(x)).length;
+  }
+
+  private isEditedQuiz(q: QuizDisplay): boolean {
+    return this.generateNaiveChecksum(q) != q.naiveQuizChecksum 
+      && !q.markedForDelete
+      && !q.newlyAdded;
+  }
+
+  saveBatchEdits() {
+
+    const changedQuizzes = this.quizzes.filter(x => this.isEditedQuiz(x));
+
+    const newQuizzes = [];
+
+    this.quizSvc.saveQuizzes(
+      changedQuizzes
+      , newQuizzes
+    ).subscribe(
+      data => console.log(`Web service saved ${data} edited quizzes`)
+      , err => console.error(err)
+    );
   }
 }

@@ -7,6 +7,7 @@ interface QuizDisplay {
   questions: QuestionDisplay[];
   markedForDelete: boolean;
   newlyAdded: boolean;
+  naiveQuizChecksum: string;
 }
 
 interface QuestionDisplay {
@@ -37,14 +38,26 @@ export class AppComponent implements OnInit {
 
   private loadAllQuizzes() {
     this.quizSvc.loadQuizzes().subscribe(data => {
+      
       console.log(data);
+      
       this.quizzes = (data as QuizDisplay[]).map(x => ({
         name: x.name
         , questions: x.questions
         , markedForDelete: false
         , newlyAdded: false
+        , naiveQuizChecksum: this.generateNaiveChecksum(x)
       }));
+      
+      console.log(this.quizzes);
+
     }, error => this.wasErrorLoadingQuizzes = true);
+  }
+
+  generateNaiveChecksum(q: QuizDisplay) {
+    const foo = q.name + q.questions.map(x => '~' + x.name).join('');
+    console.log(foo);
+    return foo;
   }
 
   cancelAllChanges() {
@@ -63,6 +76,7 @@ export class AppComponent implements OnInit {
       , questions: []
       , markedForDelete: false
       , newlyAdded: true
+      , naiveQuizChecksum: ""
     };
 
     this.quizzes = [
@@ -136,6 +150,17 @@ export class AppComponent implements OnInit {
   }
 
   get numberOfAddedQuizzes() {
-    return this.quizzes.filter(x => x.newlyAdded && !x.markedForDelete).length;
+    return this.quizzes.filter(x => 
+      x.newlyAdded 
+      && !x.markedForDelete
+    ).length;
+  }
+
+  get numberOfEditedQuizzes() {
+    return this.quizzes.filter(x => 
+      this.generateNaiveChecksum(x) != x.naiveQuizChecksum 
+      && !x.markedForDelete
+      && !x.newlyAdded
+    ).length;
   }
 }

@@ -25,6 +25,8 @@ export class AppComponent implements OnInit {
   borderRadius = Math.random() > 0.5 ? '30px' : '0px';
   toolTip = `This is ${this.bg} and has a border radius of ${this.borderRadius}`;
 
+  images = [10, 101, 1018].map((x) => `https://i.picsum.photos/id/${x}/900/500.jpg`);
+
   // Need a ctor for DI of the QuizService.
   constructor(private quizSvc: QuizService) { }
 

@@ -23,6 +23,12 @@ export class AppComponent implements OnInit {
   borderRadius = Math.random() > 0.5 ? '30px' : '0px';
   toolTip = `This is ${this.bg} and has a border radius of ${this.borderRadius}`;
 
+  model = {
+    left: true,
+    middle: false,
+    right: false
+  };
+
   // Need a ctor for DI of the QuizService.
   constructor(private quizSvc: QuizService) { }
 

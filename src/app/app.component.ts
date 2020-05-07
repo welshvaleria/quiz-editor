@@ -39,8 +39,6 @@ export class AppComponent implements OnInit {
   private loadAllQuizzes() {
     this.quizSvc.loadQuizzes().subscribe(data => {
       
-      console.log(data);
-      
       this.quizzes = (data as QuizDisplay[]).map(x => ({
         name: x.name
         , questions: x.questions
@@ -48,9 +46,6 @@ export class AppComponent implements OnInit {
         , newlyAdded: false
         , naiveQuizChecksum: this.generateNaiveChecksum(x)
       }));
-      
-      console.log(this.quizzes);
-
     }, error => this.wasErrorLoadingQuizzes = true);
   }
 
@@ -166,11 +161,19 @@ export class AppComponent implements OnInit {
       && !q.newlyAdded;
   }
 
+  private isAddedQuiz(quiz: QuizDisplay): boolean {
+    return quiz.newlyAdded && !quiz.markedForDelete;
+  }
+
   saveBatchEdits() {
 
     const changedQuizzes = this.quizzes.filter(x => this.isEditedQuiz(x));
 
-    const newQuizzes = [];
+    const newQuizzes = this.quizzes.filter(x => this.isAddedQuiz(x))
+      .map(x => ({
+        "quizName": x.name
+        , "quizQuestions": x.questions.map(question => question.name)
+      }));
 
     this.quizSvc.saveQuizzes(
       changedQuizzes

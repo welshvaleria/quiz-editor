@@ -167,10 +167,14 @@ export class AppComponent implements OnInit {
   }
 
   saveBatchEdits() {
-
+    let newQuizzes = [];
+    this.quizzes.forEach(q => {
+      let quizObj = {};
+      quizObj["quizName"] = q.name
+      quizObj["quizQuestions"] = q.questions.map(b => b.name) 
+      newQuizzes.push(quizObj)
+  })
     const changedQuizzes = this.quizzes.filter(x => this.isEditedQuiz(x));
-
-    const newQuizzes = [];
 
     this.quizSvc.saveQuizzes(
       changedQuizzes

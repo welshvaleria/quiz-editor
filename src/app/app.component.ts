@@ -166,11 +166,20 @@ export class AppComponent implements OnInit {
       && !q.newlyAdded;
   }
 
+  private isAddedQuiz(q: QuizDisplay): boolean {
+    return q.newlyAdded && !q.markedForDelete;
+  }
+
   saveBatchEdits() {
 
     const changedQuizzes = this.quizzes.filter(x => this.isEditedQuiz(x));
 
-    const newQuizzes = [];
+    const newQuizzes = this.quizzes.filter(x => this.isAddedQuiz(x))
+            .map(x=> ({
+                "quizName" : x.name,
+                "quizQuestions" : x.questions.map(question => question.name)
+            })
+            );
 
     this.quizSvc.saveQuizzes(
       changedQuizzes

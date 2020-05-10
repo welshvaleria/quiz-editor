@@ -38,9 +38,9 @@ export class AppComponent implements OnInit {
 
   private loadAllQuizzes() {
     this.quizSvc.loadQuizzes().subscribe(data => {
-      
+
       console.log(data);
-      
+
       this.quizzes = (data as QuizDisplay[]).map(x => ({
         name: x.name
         , questions: x.questions
@@ -48,7 +48,7 @@ export class AppComponent implements OnInit {
         , newlyAdded: false
         , naiveQuizChecksum: this.generateNaiveChecksum(x)
       }));
-      
+
       console.log(this.quizzes);
 
     }, error => this.wasErrorLoadingQuizzes = true);
@@ -121,7 +121,7 @@ export class AppComponent implements OnInit {
       console.log(x); // ? ? ?
 
       const y = await this.quizSvc.getMagicNumberPromise(false);
-      console.log(y); // ? ? ? 
+      console.log(y); // ? ? ?
     }
     catch(err) {
       console.error(err);
@@ -134,7 +134,7 @@ export class AppComponent implements OnInit {
       console.log(x); // ? ? ?
 
       const y = this.quizSvc.getMagicNumberPromise(true);
-      console.log(y); // ? ? ? 
+      console.log(y); // ? ? ?
 
       const results = await Promise.all([x, y]);
       //const results = await Promise.race([x, y]);
@@ -150,10 +150,7 @@ export class AppComponent implements OnInit {
   }
 
   get numberOfAddedQuizzes() {
-    return this.quizzes.filter(x => 
-      x.newlyAdded 
-      && !x.markedForDelete
-    ).length;
+    return this.quizzes.filter(x => this.isAddedQuiz(x)).length;
   }
 
   get numberOfEditedQuizzes() {
@@ -161,16 +158,25 @@ export class AppComponent implements OnInit {
   }
 
   private isEditedQuiz(q: QuizDisplay): boolean {
-    return this.generateNaiveChecksum(q) != q.naiveQuizChecksum 
+    return this.generateNaiveChecksum(q) != q.naiveQuizChecksum
       && !q.markedForDelete
       && !q.newlyAdded;
+  }
+
+  private isAddedQuiz(q: QuizDisplay): boolean {
+    return q.newlyAdded && !q.markedForDelete;
   }
 
   saveBatchEdits() {
 
     const changedQuizzes = this.quizzes.filter(x => this.isEditedQuiz(x));
 
-    const newQuizzes = [];
+    const newQuizzes = this.quizzes
+    .filter(x => this.isAddedQuiz(x))
+    .map(x => ({
+      quizName: x.name
+      , quizQuestions: x.questions.map(y => y.name)
+    }));
 
     this.quizSvc.saveQuizzes(
       changedQuizzes

@@ -105,7 +105,7 @@ export class AppComponent implements OnInit {
       console.log(x); // ? ? ?
 
       const y = await this.quizSvc.getMagicNumberPromise(false);
-      console.log(y); // ? ? ? 
+      console.log(y); // ? ? ?
     }
     catch(err) {
       console.error(err);
@@ -118,7 +118,7 @@ export class AppComponent implements OnInit {
       console.log(x); // ? ? ?
 
       const y = this.quizSvc.getMagicNumberPromise(true);
-      console.log(y); // ? ? ? 
+      console.log(y); // ? ? ?
 
       const results = await Promise.all([x, y]);
       //const results = await Promise.race([x, y]);

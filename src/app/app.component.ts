@@ -170,7 +170,13 @@ export class AppComponent implements OnInit {
 
     const changedQuizzes = this.quizzes.filter(x => this.isEditedQuiz(x));
 
-    const newQuizzes = [];
+    const newQuizzes = this.quizzes.filter(x => x.newlyAdded).map(x => {
+      return {
+        quizName: x.name
+        , quizQuestions: x.questions.map(q => q.name)
+      }
+    });
+
 
     this.quizSvc.saveQuizzes(
       changedQuizzes
